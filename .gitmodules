@@ -1,0 +1,4 @@
+[submodule "nina"]
+	path = nina
+	url = https://bitbucket.org/Isbeorn/nina.git
+	branch = develop
