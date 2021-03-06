@@ -9,7 +9,18 @@
         <nina:SequenceBlockView DataContext="{Binding}">
             <nina:SequenceBlockView.SequenceItemContent>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Text="{ns:Loc LblAmount}" />
+                    <TextBlock VerticalAlignment="Center" Text="Focuser Delta" />
+                    <TextBox
+                        MinWidth="40"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Text="{Binding FocuserDelta}"
+                        TextAlignment="Right" />
+                    <TextBlock 
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center" 
+                        Text="{ns:Loc LblAmount}" />
                     <TextBox
                         MinWidth="40"
                         Margin="5,0,0,0"

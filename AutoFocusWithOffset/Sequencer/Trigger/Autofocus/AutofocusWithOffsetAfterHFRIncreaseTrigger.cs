@@ -61,6 +61,17 @@ namespace NINA.Sequencer.Trigger.Autofocus {
             }
         }
 
+        private int focuserDelta;
+
+        [JsonProperty]
+        public int FocuserDelta {
+            get => focuserDelta;
+            set {
+                focuserDelta = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public override object Clone() {
             return new AutofocusWithOffsetAfterHFRIncreaseTrigger(profileService, history, cameraMediator, filterWheelMediator, focuserMediator, guiderMediator, imagingMediator, applicationStatusMediator) {
                 Icon = Icon,
@@ -68,6 +79,7 @@ namespace NINA.Sequencer.Trigger.Autofocus {
                 Name = Name,
                 Category = Category,
                 Description = Description,
+                FocuserDelta = FocuserDelta,
                 TriggerRunner = (SequentialContainer)TriggerRunner.Clone()
             };
         }
@@ -108,6 +120,11 @@ namespace NINA.Sequencer.Trigger.Autofocus {
 
         public override async Task Execute(ISequenceContainer context, IProgress<ApplicationStatus> progress, CancellationToken token) {
             await TriggerRunner.Run(progress, token);
+
+            if (focuserDelta != 0) {
+                Logger.Info($"AutoFocus complete. Moving focuser an additional {focuserDelta} steps");
+                await focuserMediator.MoveFocuserRelative(focuserDelta, token);
+            }
         }
 
         public override bool ShouldTrigger(ISequenceItem nextItem) {

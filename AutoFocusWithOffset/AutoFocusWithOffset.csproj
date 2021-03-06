@@ -7,8 +7,8 @@
     <ProjectGuid>{C8263488-E807-4959-8B4E-5AAD1210BD5E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NINA.Plugin.Template</RootNamespace>
-    <AssemblyName>NINA.Plugin.Template</AssemblyName>
+    <RootNamespace>NINA.Plugin.AutoFocusWithOffset</RootNamespace>
+    <AssemblyName>AutoFocusWithOffset</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

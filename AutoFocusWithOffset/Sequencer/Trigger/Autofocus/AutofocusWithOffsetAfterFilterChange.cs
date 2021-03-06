@@ -1,10 +1,12 @@
-﻿using NINA.Model;
+﻿using Newtonsoft.Json;
+using NINA.Model;
 using NINA.Model.MyFilterWheel;
 using NINA.Profile;
 using NINA.Sequencer.Container;
 using NINA.Sequencer.SequenceItem;
 using NINA.Sequencer.SequenceItem.Autofocus;
 using NINA.Sequencer.Validations;
+using NINA.Utility;
 using NINA.Utility.Mediator.Interfaces;
 using NINA.ViewModel.ImageHistory;
 using System;
@@ -56,6 +58,17 @@ namespace NINA.Sequencer.Trigger.Autofocus {
             }
         }
 
+        private int focuserDelta;
+
+        [JsonProperty]
+        public int FocuserDelta {
+            get => focuserDelta;
+            set {
+                focuserDelta = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public FilterInfo LastAutoFocusFilter { get; private set; }
 
         public override object Clone() {
@@ -64,12 +77,18 @@ namespace NINA.Sequencer.Trigger.Autofocus {
                 Name = Name,
                 Category = Category,
                 Description = Description,
+                FocuserDelta = FocuserDelta,
                 TriggerRunner = (SequentialContainer)TriggerRunner.Clone()
             };
         }
 
         public override async Task Execute(ISequenceContainer context, IProgress<ApplicationStatus> progress, CancellationToken token) {
             await TriggerRunner.Run(progress, token);
+
+            if (focuserDelta != 0) {
+                Logger.Info($"AutoFocus complete. Moving focuser an additional {focuserDelta} steps");
+                await focuserMediator.MoveFocuserRelative(focuserDelta, token);
+            }
         }
 
         public override void Initialize() {

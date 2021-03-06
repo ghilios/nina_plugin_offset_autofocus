@@ -7,6 +7,18 @@
     xmlns:nina="clr-namespace:NINA.View.Sequencer;assembly=NINA">
     <DataTemplate DataType="{x:Type local:AutofocusWithOffsetAfterFilterChange}">
         <nina:SequenceBlockView DataContext="{Binding}">
+            <nina:SequenceBlockView.SequenceItemContent>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Focuser Delta" />
+                    <TextBox
+                        MinWidth="40"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Text="{Binding FocuserDelta}"
+                        TextAlignment="Right" />
+                </StackPanel>
+            </nina:SequenceBlockView.SequenceItemContent>
             <nina:SequenceBlockView.SequenceItemProgressContent>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
